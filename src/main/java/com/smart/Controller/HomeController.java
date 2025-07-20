@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smart.Dao.UserRepository;
+import com.smart.entities.Contact;
 import com.smart.entities.User;
 
 @Controller
@@ -21,6 +22,10 @@ public class HomeController {
 		User user=new User();
 		user.setName("Mukul");
 		user.setEmail("mukul@gmail.com");
+		
+		Contact contact=new Contact();
+		user.getContacts().add(contact);
+		
 		userRepository.save(user);
 		
 		return "Working";

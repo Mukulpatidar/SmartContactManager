@@ -1,10 +1,13 @@
 package com.smart.entities;
 
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +26,20 @@ public class Contact {
 	
 	@Column(length=50000)
 	private String description;
+	
+	@ManyToOne()
+	private User user;
+	
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public int getcID() {
 		return cID;

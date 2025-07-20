@@ -33,7 +33,7 @@ public class User {
 	private String about;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
 	private List<Contact> contacts=new ArrayList<>();
 
 	public User(int id, String name, String email, String password, String role, boolean enabled, String imageUrl,String about) {

@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.smart.entities.User;
+
 
 @Controller
 public class HomeController {
@@ -21,13 +23,14 @@ public class HomeController {
 	@RequestMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("title","Register - Smart Contact Manager");
+		model.addAttribute("user",new User());
 		return "signup";
 	}
 	
 	
-	@RequestMapping("/login")
-	public String login(Model model) {
-		model.addAttribute("title","login - Smart Contact Manager");
-		return "login";
-	}
+//	@RequestMapping("/login")
+//	public String login(Model model) {
+//		model.addAttribute("title","login - Smart Contact Manager");
+//		return "login";
+//	}
 }

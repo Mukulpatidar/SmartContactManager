@@ -11,8 +11,116 @@
 		
 		
 		<section>
-			<h1>This is signUp page</h1>
-			<h2>We are goig to write about</h2>
+	 
+			<div class="container">
+				<div class="row">	
+				<div class="col-md-6 offset-md-3 mt-1">
+					<div class="my-card">
+						
+						<div class="container text-center">
+							
+							<img style="width: 80px;"  src=""  th:src="@{/images/document.png}"/>
+							
+						</div>
+						
+					
+						<h1 class="text-center">Register Here</h1>	
+						
+						<form action="" th:action="@{/do_register}" method="post" >
+							
+							<!--  Name Field-->
+							
+							<div class="mb-3">
+							    <label for="name_field" class="form-label">Your Name</label>
+							    <input type="text" 
+								class="form-control" 
+								id="name_field" 
+								aria-describedby="emailHelp"
+								placeholder="Enter here"
+								required
+								/>
+			     			 </div>
+							 
+							 
+							 <!--  Email  Field-->
+
+							 <div class="mb-3">
+							     <label for="email_field" class="form-label">Your Email</label>
+							     <input type="email" 
+							 	class="form-control" 
+							 	id="email_field" 
+							 	aria-describedby="emailHelp"
+							 	placeholder="Enter here"
+							 	required
+							 	/>
+							  </div>	
+							  						 
+
+							  <!--  Password Field-->
+
+							  <div class="mb-3">
+							      <label for="password_field" class="form-label">Your Password</label>
+							      <input type="password" 
+							  	class="form-control" 
+							  	id="password_field" 
+							  	aria-describedby="emailHelp"
+							  	placeholder="Enter here"
+							  	required
+							  	/>
+							   </div>
+							   
+
+							   <!--  About Field-->
+  
+	 
+							   <div class="form-group">
+								
+								<textarea placeholder="Enter Something Yourself" rows="5" class="form-control"></textarea>
+								
+							   </div>
+							   
+							   
+							   <!--   Terms and condition agreement -->
+							   
+							   <div class="form-group form-check">
+								
+								<input
+								type="checkbox"
+								name="agreement"
+								class="form-check-input"
+								id="agreement"
+								required
+								/>
+								
+								<label for="agreement">Accept terms and conditions</label>
+								
+							   </div>
+							   
+							   
+							   
+							   <div class="container  text-center">
+								
+								<button type="submit" class="btn bg-primary text-white">Submit</button>
+								<button type="reset" class="btn btn-warning">Reset</button>
+								
+							   </div>
+							   						 
+							    
+
+								
+																							   							
+							
+						</form>
+						
+					</div>
+					
+					
+				</div>
+					
+				</div>
+			</div>
+			 
+			
 		</section>
 	 </body>
 

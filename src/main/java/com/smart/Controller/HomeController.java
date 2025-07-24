@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.smart.Dao.UserRepository;
 import com.smart.entities.User;
+import com.smart.helper.Message;
+
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -37,25 +40,39 @@ public class HomeController {
 	//handler for registering user
 	
 	@PostMapping("/do_register")
-	public String registerUser(@ModelAttribute("user") User user,@RequestParam(value="agreement",defaultValue = "false") boolean agreement,Model model ) {
+	public String registerUser(@ModelAttribute("user") User user,@RequestParam(value = "agreement",defaultValue = "false") boolean agreement,Model model,HttpSession session ) {
 		
-		user.setRole("ROLE_USER");
-		user.setEnabled(true);
-		
-		System.out.println(agreement);
-		System.out.println(user);
-		
-		
-		User result=this.userRepository.save(user);
-		
+		try {
+			
+			if(!agreement) {
+				System.out.println("You have not agreed the terms and condition");
+			   throw new Exception("You have not agreed the terms and condition");
+			}
+			
+			user.setRole("ROLE_USER");
+			user.setEnabled(true);
+			user.setImageUrl("default.png");
+			
+			System.out.println(agreement);
+			System.out.println(user);
+			
+			
+			User result=this.userRepository.save(user);
+			
+			model.addAttribute("user",new User());
+			
+			session.setAttribute("message", new Message("Successfully Register","alert-success"));
+			return "signup";
+			
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+			model.addAttribute("user",user);
+			session.setAttribute("message", new Message("Something went wrong!!"+e.getMessage(),"alert-danger"));
+				
 		return "signup";
 	}
+}
 	
 	
-	
-//	@RequestMapping("/login")
-//	public String login(Model model) {
-//		model.addAttribute("title","login - Smart Contact Manager");
-//		return "login";
-//	}
 }

@@ -3,6 +3,11 @@ package com.smart.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,129 +19,102 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="USER")
+@Table(name = "USER")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
-	private String name;
-	
-	@Column(unique=true)
-	private String email;
-	private String password;
-	private String role;
-	private boolean enabled;
-	private String imageUrl;
-	
-	@Column(length=500)
-	private String about;
-	
-	
-	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "user")
-	private List<Contact> contacts=new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-	public User(int id, String name, String email, String password, String role, boolean enabled, String imageUrl,String about) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.role = role;
-		this.enabled = enabled;
-		this.imageUrl = imageUrl;
-		this.about = about;
-	}
+    @NotBlank(message = "Name field is required !!")
+    @Size(min = 2, max = 20, message = "Min 2 and Max 20 characters allowed !!")
+    private String name;
 
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @Column(unique = true)
+    @NotBlank(message = "Email is required !!")
+    @Email(message = "Invalid email format !!")
+    private String email;
 
-	public int getId() {
-		return id;
-	}
+    @NotBlank(message="Password field is required !!")
+    @Pattern(
+        regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,}$",
+        message = "Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 6 characters long"
+    )
+    private String password;
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
-	public String getName() {
-		return name;
-	}
+    @NotBlank(message = "Role is required !!")
+    private String role;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private boolean enabled;
 
-	public String getEmail() {
-		return email;
-	}
+    @NotBlank(message = "Image URL is required !!")
+    private String imageUrl;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    @NotBlank(message = "About field cannot be empty !!")
+    @Size(max = 500, message = "About section should not exceed 500 characters !!")
+    @Column(length = 500)
+    private String about;
 
-	public String getPassword() {
-		return password;
-	}
+    // Relationships
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Contact> contacts = new ArrayList<>();
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    // Constructors
+    public User(int id, String name, String email, String password, String role, boolean enabled, String imageUrl, String about) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.enabled = enabled;
+        this.imageUrl = imageUrl;
+        this.about = about;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public User() {
+        super();
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    // Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-	public String getAbout() {
-		return about;
-	}
+    public boolean isEnabled() { return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
-	public void setAbout(String about) {
-		this.about = about;
-	}
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-	public List<Contact> getContacts() {
-		return contacts;
-	}
+    public String getAbout() { return about; }
+    public void setAbout(String about) { this.about = about; }
 
-	public void setContacts(List<Contact> contacts) {
-		this.contacts = contacts;
-	}
+    public List<Contact> getContacts() { return contacts; }
+    public void setContacts(List<Contact> contacts) { this.contacts = contacts; }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-				+ ", enabled=" + enabled + ", imageUrl=" + imageUrl + ", about=" + about + ", contacts=" + contacts
-				+ ", getId()=" + getId() + ", getName()=" + getName() + ", getEmail()=" + getEmail()
-				+ ", getPassword()=" + getPassword() + ", getRole()=" + getRole() + ", isEnabled()=" + isEnabled()
-				+ ", getImageUrl()=" + getImageUrl() + ", getAbout()=" + getAbout() + ", getContacts()=" + getContacts()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
-	}
-	
-	
-	
-	 
+    @Override
+    public String toString() {
+        return "User [id=" + id +
+                ", name=" + name +
+                ", email=" + email +
+                ", password=" + password +
+                ", role=" + role +
+                ", enabled=" + enabled +
+                ", imageUrl=" + imageUrl +
+                ", about=" + about +
+                ", contacts=" + contacts + "]";
+    }
 }
